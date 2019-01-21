@@ -1,0 +1,103 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+	<div class="centrado">
+		<h1>Ingrese los nuevos datos del responsable a modificar</h1>
+	</div>
+	<div id="error">{{ var }}</div>
+	<form action="../Responsable/modificarResponsable" method="post" accept-charset="utf-8">
+		<div class="row">
+			<div class="col-md-5">
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<input type="hidden" name="idResponsable" class="form-control" value="{{ responsable.id }}">
+				</div>
+				<div class="form-group">
+					Tipo:
+					<select name="tipo">
+						{% if(responsable.tipo == 'tutor') %}
+							<option value="tutor" selected="selected">Tutor</option>
+							<option value="padre">Padre</option>
+							<option value="madre">Madre</option>
+						{% elseif(responsable.tipo == 'padre') %}
+							<option value="tutor">Tutor</option>
+							<option value="padre" selected="selected">Padre</option>
+							<option value="madre">Madre</option>
+						{% else %}
+							<option value="tutor">Tutor</option>
+							<option value="padre">Padre</option>
+							<option value="madre" selected="selected">Madre</option>
+						{% endif %}
+					</select>
+				</div>
+				<div class="form-group">
+					<p>
+						<label>Apellido</label>
+					</p>
+					<input id="apellido" name="apellido" class="form-control" required="required" pattern="[A-Za-z\s]{2,20}" title="Ingrese un mínimo de 2 letras, máximo 20" value="{{ responsable.apellido }}">
+				</div>
+				<div class="form-group">
+					<p>
+						<label for="nombre">Nombre</label>
+					</p>
+					<input id="nombre" name="nombre" class="form-control" type="text" required="required" pattern="[A-Za-z\s]{2,20}" title="Ingrese un mínimo de 2 letras, máximo 20" value="{{ responsable.nombre }}">
+				</div>
+				<div class="form-group">
+					<p>
+						<label>Fecha de nacimiento</label>
+					</p>
+					<input id="fechaNacimiento" name="fechaNacimiento" class="form-control" type="datetime" required="required" value="{{ responsable.fechaNacimiento }}">
+				</div>
+				<div class="form-group">
+					<div class="centrado">
+						<p>
+							<label>Sexo</label>
+						</p>
+						{% if(responsable.sexo == 'M') %}
+							<input name="sexo" type="radio" value="M" required="required" checked="checked">
+							<label>M</label>
+							<input name="sexo" type="radio" value="F" required="required">
+							<label>F</label>
+						{% else %}
+							<input name="sexo" type="radio" value="M" required="required">
+							<label>M</label>
+							<input name="sexo" type="radio" value="F" required="required" checked="checked">
+							<label>F</label>
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-group">
+					<p>
+						<label>Mail</label>
+					</p>
+					<input id="mail" name="mail" class="form-control" type="text" pattern=".{3,30}" title="Ingrese un mínimo de 3 carácteres, máximo 30" value="{{ responsable.mail }}">
+				</div>
+				<div class="form-group">
+					<p>
+						<label>Teléfono</label>
+					</p>
+					<input id="telefono" name="telefono" class="form-control" type="text" required="required" pattern=".{6,20}" title="Ingrese un mínimo de 6 carácteres, máximo 20" value="{{ responsable.telefono }}">
+				</div>
+				<div class="form-group">
+					<p>
+						<label>Dirección</label>
+					</p>
+					<input id="direccion" name="direccion" class="form-control" type="text" required="required" pattern=".{3,30}" title="Ingrese un mínimo de 3 carácteres, máximo 30" value="{{ responsable.direccion }}">
+				</div>
+				<br />
+				<div class="centrado">
+					<input name="enviar" type="submit" class="btn btn-primary" value="Enviar">
+					<br />
+				</div>
+			</div>
+		</div>
+	</form>
+	<br />
+	<form action="../Responsable/controlResponsable">
+		<div class="centrado">
+	  		<button class="btn btn-primary" value="Cancelar">Cancelar</button>
+	  	</div>
+	</form>
+	<br />
+{% endblock %}

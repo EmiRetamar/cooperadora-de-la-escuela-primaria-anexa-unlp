@@ -1,0 +1,75 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <br />
+    {% if(var.exito) %}
+        <div id="exito">{{ var.exito }}</div>
+    {% elseif(var.error) %}
+        <div id="error">{{ var.error }}</div>
+    {% endif %}
+
+    <div class="table-responsive">
+        <table id="tabla" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Sexo</th>
+                    <th>Mail</th>
+                    <th>Teléfono</th>
+                    <th>Direccion</th>
+                    <th>Nombre de usuario</th>
+                    <th>Alumnos</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for responsable in responsables %}
+                    <tr>
+                        <td> {{ responsable.tipo }} </td>
+                        <td> {{ responsable.apellido }} </td> 
+                        <td> {{ responsable.nombre }} </td>
+                        <td> {{ responsable.fechaNacimiento }} </td>
+                        <td> {{ responsable.sexo }} </td>
+                        <td> {{ responsable.mail }} </td>
+                        <td> {{ responsable.telefono }} </td>
+                        <td> {{ responsable.direccion }} </td>
+                        <td>
+                            {% if(responsable.username|length > 0) %}
+                                {{ responsable.username }}
+                            {% else %}
+                                No posee.  
+                            {% endif %}
+                        </td>
+                        <td><form action="../Responsable/vistaAsignarAlumno" method="post">
+                                <input type="hidden" name="idResponsable" value="{{ responsable.id }}">
+                                <button type="submit" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </button>
+                            </form> 
+                        </td>
+                        <td>
+                            <form action="../Responsable/vistaModificarResponsable" method="post">
+                                <input type="hidden" name="idResponsable" value="{{ responsable.id }}">
+                                <button type="submit" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="../Responsable/vistaEliminarResponsable" method="post">
+                                <input type="hidden" name="idResponsable" value="{{ responsable.id }}">
+                                <button type="submit" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

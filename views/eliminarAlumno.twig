@@ -1,0 +1,26 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <div class="centrado">
+        <h1>Alumno a eliminar: {{ alumno.apellido }} {{ alumno.nombre }}</h1>
+    </div>
+    <br />
+    <div class="centrado">
+        <h2>¿Está seguro que desea eliminar este alumno?</h2>
+    </div>
+    <br />
+    <div id="error">{{ var.error }}</div>
+    <form action="../Alumno/eliminarAlumno" method="post">
+        <div class="centrado">
+            <input type="hidden" name="idAlumno" class="form-control" value="{{ alumno.id }}">
+            <input type="submit" class="btn btn-primary" value="Aceptar">
+        </div>
+    </form>
+    <br />
+    <form action="../Alumno/controlAlumno">
+        <div class="centrado">
+            <button class="btn btn-primary" value="Cancelar">Cancelar</button>
+        </div>
+    </form>
+    <br />
+{% endblock %}

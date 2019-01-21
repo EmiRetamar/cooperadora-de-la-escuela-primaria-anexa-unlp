@@ -1,0 +1,62 @@
+{% block content %}
+
+{% if datos.1|length > 0 %}
+    <h3>Cuotas vencidas </h3>
+        <div class="table-responsive">
+            <table  class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Año</th>
+                        <th>Mes</th>
+                        <th>Numero cuota</th>
+                        <th>Monto</th>
+                        <th>Tipo</th>
+                        <th>Comision a cobrador</th>
+                        <th>Fecha de alta</th>
+                        <th>Pagar ó Becar </th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    {% for cuotasVencidas in datos.1 %}
+                        <tr> 
+                            <td> {{ cuotasVencidas.anio }} </td>
+                            <td> {{ cuotasVencidas.mes }} </td>
+                            <td> {{ cuotasVencidas.numero }} </td> 
+                            <td> {{ cuotasVencidas.monto }} </td>
+                            <td>
+                                {% if(cuotasVencidas.tipo == 0) %}
+                                    Cuota
+                                {% else %}
+                                    Matricula
+                                {% endif %}
+                            </td>
+                            <td> {{ cuotasVencidas.comisionCobrador }} </td>
+                            <td> {{ cuotasVencidas.fechaAlta }} </td>    
+                        <form action="../Cuota/pagarBecarAlumno" method="post">
+                            <td> 
+                                <input type="checkbox" name="check_list[]" value="{{ cuotasVencidas.id }}">  </td>
+
+                                <input type="hidden" name="idAlumno" value="{{ datos.0 }}">  
+                            </td>
+                        </tr>   
+                    {% endfor %}
+                </tbody>
+                <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><input type="submit" value="Pagar" name="submit"> <input type="submit" value="Becar" name="submit"></td>
+                        </form>
+                </tr>   
+            </table>
+        </div>
+{% else %} 
+    <div class="centrado">
+        <h3>No se registran cuotas vencidas</h3>
+    </div>  
+{% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+<form action="../Alumno/cuotasPagasPDF" method="post">
+	<div class="row">
+		<div class="col-md-5">
+		</div>
+		<div class="col-md-2">
+			<div class="form-group">
+				<p>Ingrese mes: </p>
+				<input id="mes" title="Ingrese un número entre 1 y 12" type="number" name="mes" class="form-control" min="1" max="12" required="required" value="{{ var.post.mes }}">
+				<br />
+				<p>Ingrese año: </p>
+				<input id="anio" title="Ingrese un número entre 1990 y 2050" type="number" name="anio" class="form-control" min="1990" max="2050" required="required" value="{{ var.post.anio }}">
+				<br />
+				<div class="centrado">
+					<input type="submit" class="btn btn-primary" value="Enviar">
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<form action="../Alumno/CuotasPagas">
+	<div class="centrado">
+        <button class="btn btn-primary" value="Cancelar">Cancelar</button>
+	</div>
+</form>
+{% endblock %}

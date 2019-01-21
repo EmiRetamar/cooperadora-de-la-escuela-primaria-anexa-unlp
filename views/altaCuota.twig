@@ -1,0 +1,82 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+	<div class="centrado">
+		<h1>Ingrese los datos de la nueva cuota</h1>
+	</div>
+	
+	<form action="../Cuota/agregarCuota" method="post">
+		<div class="row">
+			<div class="col-md-5">
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<p>
+						<label>Numero de cuota:</label>
+					</p>
+					<input id="numero" title="Ingrese un número entre 1 y 9999" type="number" name="numero" class="form-control" min="1" max="9999" required="required" value="{{ var.post.numero }}">
+				</div>
+				<div id="error">{{ var.error.numero }}</div>
+				<div>
+					<p>
+						<label>Tipo de cuota:</label>
+					</p>
+					<div class="centrado">
+					{% if ( var.post.tipo == 0) %}
+						<input id="tipoCuota" name="tipo" type="radio" value="0" required="required" checked="checked">
+						<label>Cuota</label>
+						<input id="tipoMatricula" name="tipo" type="radio" value="1" required="required">
+						<label>Matricula</label>
+					{% else %}
+						<input id="tipoCuota" name="tipo" type="radio" value="0" required="required">
+						<label>Cuota</label>
+						<input id="tipoMatricula" name="tipo" type="radio" value="1" required="required" checked="checked">
+						<label>Matricula</label>
+					{% endif %}
+					</div>
+					<div id="error">{{ var.error.tipo }}</div>
+					<br />
+				</div>
+				<div class="form-group">
+					<p>
+						<label>Monto de la cuota:</label>
+					</p>
+					<input id="monto" title="Ingrese un número entre 1 y 9999" type="number" name="monto" class="form-control" min="1" max="9999" required="required" value="{{ var.post.monto }}">
+				</div>
+				<div id="error">{{ var.error.monto }}</div>
+				<div class="form-group">
+					<p>
+						<label>Mes de la cuota:</label>
+					</p>
+					<input id="mes" title="Ingrese un número entre 1 y 12" type="number" name="mes" class="form-control" min="1" max="12" required="required" value="{{ var.post.mes }}">
+				</div>
+				<div id="error">{{ var.error.mes }}</div>
+				<div class="form-group">
+					<p>
+						<label>Año de la cuota:</label>
+					</p>
+					<input id="anio" title="Ingrese un número entre 1990 y 2050" type="number" name="anio" class="form-control" min="1990" max="2050" required="required" value="{{ var.post.anio }}">
+				</div>
+				<div id="error">{{ var.error.anio }}</div>
+				<div class="form-group">
+					<p>
+						<label>Porcentaje de comisión al cobrador:</label>
+					</p>
+					<input id="comisionCobrador" title="Ingrese un número entre 0 y 100" type="number" name="comisionCobrador" class="form-control" min="0" max="100" required="required" value="{{ var.post.comisionCobrador }}">
+				</div>
+				<div id="error">{{ var.error.comisionCobrador }}</div>
+				<br />
+				<div class="centrado">
+					<input type="submit" class="btn btn-primary" value="Enviar">
+				</div>
+			</div>
+		</div>
+	</form>
+	<br />
+    <form action="../Cuota/controlCuota">
+		<div class="centrado">
+            <button class="btn btn-primary" value="Cancelar">Cancelar</button>
+		</div>
+    </form>
+    <br />
+{% endblock %}

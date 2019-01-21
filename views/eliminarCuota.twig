@@ -1,0 +1,26 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <div class="centrado">
+        <h1>Numero de cuota a eliminar: {{ cuota.numero }}</h1>
+    </div>
+    <br />
+    <div class="centrado">
+        <h2>¿Está seguro que desea eliminar esta cuota?</h2>
+    </div>
+    <br />
+    <div id="error">{{ var.1 }}</div>
+    <form action="../Cuota/eliminarCuota" method="post">
+        <div class="centrado">
+            <input type="hidden" name="idCuota" class="form-control" value="{{ cuota.id }}" >
+            <input type="submit" class="btn btn-primary" value="Aceptar">
+        </div>
+    </form>
+    <br />
+    <form action="../Cuota/controlCuota">
+        <div class="centrado">
+            <button class="btn btn-primary" value="Cancelar">Cancelar</button>
+        </div>
+    </form>
+    <br />
+{% endblock %}

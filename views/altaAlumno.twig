@@ -1,0 +1,229 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <link href="../../lib/select2/select2.min.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="../../lib/select2/select2.min.js"></script>
+	<div class="centrado">
+		<h1>Ingrese los datos del nuevo alumno</h1>
+	</div>
+	<form action="../Alumno/agregarAlumnoResponsable" method="post" accept-charset="utf-8">
+		<div class="row">
+			<div class="col-md-5">
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<div id="error">{{ var.error.tipoDocumento }}</div>
+					<label>Tipo documento:</label>
+					<select name="tipoDocumento">
+						{% if(var.post.tipoDocumento == 'CI') %}
+					  		<option value="DNI">DNI</option>
+					  		<option value="CI" selected="selected">Cedula de identidad</option>
+					  		<option value="LE">Libreta de enrolamiento</option>
+					  		<option value="LC">Libreta civica</option>
+					  	{% elseif(var.post.tipoDocumento == 'LE') %}
+					  		<option value="DNI">DNI</option>
+					  		<option value="CI">Cedula de identidad</option>
+					  		<option value="LE" selected="selected">Libreta de enrolamiento</option>
+					  		<option value="LC">Libreta civica</option>
+					  	{% elseif(var.post.tipoDocumento == 'LC') %}
+					  		<option value="DNI">DNI</option>
+					  		<option value="CI">Cedula de identidad</option>
+					  		<option value="LE">Libreta de enrolamiento</option>
+					  		<option value="LC" selected="selected">Libreta civica</option>
+					  	{% else %}
+							<option value="DNI" selected="selected">DNI</option>
+					  		<option value="CI">Cedula de identidad</option>
+					  		<option value="LE">Libreta de enrolamiento</option>
+					  		<option value="LC">Libreta civica</option>
+					  	{% endif %}
+					</select>
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.numeroDocumento }}</div>
+					<label>Número de documento:</label>
+					<input id="numeroDocumento" name="numeroDocumento" type="number" required="required" class="form-control" min="10000000" max="99999999" title="Ingrese un número de dni válido" value="{{ var.post.numeroDocumento }}">
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.apellido }}</div>
+					<label>Apellido:</label>
+					<input id="apellido" name="apellido" required="required" class="form-control" pattern="[A-Za-z\s]{2,30}" title="Ingrese un mínimo de 2 letras, máximo 30" value="{{ var.post.apellido }}">
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.nombre }}</div>
+					<label>Nombre:</label>
+					<input id="nombre" name="nombre" type="text" required="required" class="form-control" pattern="[A-Za-z\s]{2,30}" title="Ingrese un mínimo de 2 letras, máximo 30" value="{{ var.post.nombre }}">
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.fechaNacimiento }}</div>
+					<label>Fecha de nacimiento:</label>
+					<input id="fechaNacimiento" name="fechaNacimiento" type="datetime" required="required" placeholder="AAAA-mm-dd" class="form-control" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])" value="{{ var.post.fechaNacimiento }}">
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.sexo }}</div>
+					<label>Sexo:</label>
+					<div class="centrado">
+						{% if(var.post.sexo is defined) %}
+							{% if(var.post.sexo == 'M') %}
+								<input name="sexo" type="radio" value="M" required="required" checked="checked">
+								<label>M</label>
+								<input name="sexo" type="radio" value="F" required="required">
+								<label>F</label>
+							{% else %}
+								<input name="sexo" type="radio" value="M" required="required">
+								<label>M</label>
+								<input name="sexo" type="radio" value="F" required="required" checked="checked">
+								<label>F</label>
+							{% endif %}
+						{% else %}
+							<input name="sexo" type="radio" value="M" required="required">
+							<label>M</label>
+							<input name="sexo" type="radio" value="F" required="required">
+							<label>F</label>
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.mail }}</div>
+					<label>Email:</label>
+					<input id="mail" name="mail" type="email" pattern=".{3,50}" class="form-control" title="Ingrese un mínimo de 3 carácteres, máximo 50" value="{{ var.post.mail }}">
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.direccion }}</div>
+					<label>Dirección:</label>
+					<input id="direccion" name="direccion" type="text" required="required" class="form-control" pattern=".{2,50}" title="Ingrese un mínimo de 2 carácteres, máximo 50" value="{{ var.post.direccion }}">
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.fechaIngreso }}</div>
+					<label>Fecha de ingreso:</label>
+					<input id="fechaIngreso" name="fechaIngreso" placeholder="AAAA-mm-dd" type="datetime" required="required" class="form-control" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])" value="{{ var.post.fechaIngreso }}">
+				</div>
+				<div id="error">{{ var.error.responsable }}</div>
+				<input type="radio" class="elegir" id="responsable" name="responsable" value="elegir">Elegir responsable
+				<input type="radio" class="cargar" id="responsable" name="responsable" value="cargar" required="required">Cargar Responsable
+				<div id="error">{{ var.error.mailResponsableExistente }}</div>
+				<div id="divElegirResponsable" hidden>
+					<select id="mailResponsableExistente" class="mailResponsableExistente" name="mailResponsableExistente">
+						{% for responsable in responsables %}
+							<option name="mailResponsableExistente" value="{{ responsable.mail }}">{{ responsable.nombre }} {{ responsable.apellido }} {{ responsable.mail }}</option>
+						{% endfor %}
+					</select>
+					<br />
+					<br />
+					<div class="centrado">
+						<p class="rojo">Se podrán asignar más responsables para el alumno</p>
+					</div>
+				</div>
+				<div id="divCargarResponsable" hidden>
+					<div class="form-group">
+						<div id="error">{{ var.error.tipoResponsable }}</div>
+						<label>Tipo:</label>
+						<select name="tipoResponsable" id="tipoResponsable" required="required">
+							{% if(var.post.tipoResponsable == 'padre') %}
+								<option value="tutor">Tutor</option>
+								<option value="padre" selected="selected">Padre</option>
+								<option value="madre">Madre</option>
+							{% elseif(var.post.tipoResponsable == 'madre') %}
+								<option value="tutor">Tutor</option>
+								<option value="padre">Padre</option>
+								<option value="madre" selected="selected">Madre</option>
+							{% else %}
+								<option value="tutor">Tutor</option>
+								<option value="padre">Padre</option>
+								<option value="madre">Madre</option>
+							{% endif %}
+						</select>
+					</div>
+					<div class="form-group">
+						<div id="error">{{ var.error.apellidoResponsable }}</div>
+						<label>Apellido:</label>
+						<input id="apellidoResponsable" name="apellidoResponsable" value="{{ var.post.apellidoResponsable }}" required="required" class="form-control" pattern="[A-Za-z]{2,20}" title="Ingrese un mínimo de 2 letras, máximo 20">
+					</div>
+					<div class="form-group">
+						<div id="error">{{ var.error.nombreResponsable }}</div>
+						<label>Nombre:</label>
+						<input id="nombreResponsable" name="nombreResponsable" value="{{ var.post.nombreResponsable }}" class="form-control" required="required" type="text" pattern="[A-Za-z]{2,20}" title="Ingrese un mínimo de 2 letras, máximo 20">
+					</div>
+					<div class="form-group">
+						<div id="error">{{ var.error.fechaNacimientoResponsable }}</div>
+						<label>Fecha de nacimiento:</label>
+						<input id="fechaNacimientoResponsable" name="fechaNacimientoResponsable" value="{{ var.post.fechaNacimientoResponsable }}" placeholder="AAAA-mm-dd" class="form-control" required="required" type="datetime" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])">
+					</div>
+					<div class="form-group">
+						<div id="error">{{ var.error.sexoResponsable }}</div>
+						<label>Sexo:</label>
+						<div class="centrado">
+							{% if(var.post.sexoResponsable == 'M') %}
+								<input id="sexoResponsable" name="sexoResponsable" type="radio" value="M" required="required" checked="checked">
+								<label>M</label>
+								<input id="sexoResponsable" name="sexoResponsable" type="radio" value="F" required="required">
+								<label>F</label>
+							{% elseif(var.post.sexoResponsable == 'F') %}
+								<input id="sexoResponsable" name="sexoResponsable" type="radio" value="M" required="required">
+								<label>M</label>
+								<input id="sexoResponsable" name="sexoResponsable" type="radio" value="F" required="required" checked="checked">
+								<label>F</label>
+							{% else %}
+								<input id="sexoResponsable" name="sexoResponsable" type="radio" value="M" required="required">
+								<label>M</label>
+								<input id="sexoResponsable" name="sexoResponsable" type="radio" value="F" required="required">
+								<label>F</label>
+							{% endif %}
+						</div>
+					</div>
+					<div class="form-group">
+						<div id="error">{{ var.error.mailResponsable }}</div>
+						<label>Mail:</label>
+						<input id="mailResponsable" name="mailResponsable" value="{{ var.post.mailResponsable }}" class="form-control" type="email" pattern=".{3,50}" title="Ingrese un mínimo de 3 carácteres, máximo 50">
+					</div>
+					<div class="form-group">
+						<div id="error">{{ var.error.telefonoResponsable }}</div>
+						<label>Teléfono:</label>
+						<input id="telefonoResponsable" name="telefonoResponsable" value="{{ var.post.telefonoResponsable }}" class="form-control" required="required" type="text" pattern=".{6,20}" title="Ingrese un mínimo de 6 carácteres, máximo 20">
+					</div>
+					<div class="form-group">
+						<div id="error">{{ var.error.direccionResponsable }}</div>
+						<label>Dirección:</label>
+						<input id="direccionResponsable" name="direccionResponsable" value="{{ var.post.direccionResponsable }}" class="form-control" required="required" type="text"  pattern=".{3,50}" title="Ingrese un mínimo de 3 carácteres, máximo 50">
+					</div>
+					<br />
+					<div class="centrado">
+						<p class="rojo">Se podrán asignar más responsables para el alumno</p>
+					</div>
+				</div>
+				<br />
+				<div class="centrado">
+					<input name="enviar" type="submit" class="btn btn-primary" value="Enviar">
+				</div>
+			</div>
+		</div>
+	</form>
+	<br />
+	<form action="../Alumno/controlAlumno">
+		<div class="centrado">
+  			<button class="btn btn-primary" value="Cancelar">Cancelar</button>
+    	</div>
+	</form>
+	<br />
+
+	<script type="text/javascript">
+		$( ".elegir" ).click(function() {
+	   		$('#divElegirResponsable').fadeIn();
+			$("#divCargarResponsable :input").prop('required', null);
+			$('#divCargarResponsable').fadeOut();
+		});
+
+		$( ".cargar" ).click(function() {
+			$('#divCargarResponsable').fadeIn();
+			$("#divElegirResponsable :input").prop('required', null);
+			$('#divElegirResponsable').fadeOut();
+		});
+	</script>
+	<script >
+		$(document).ready(function() {
+		  	$(".mailResponsableExistente").select2({
+	            placeholder: "Seleccione un responsable"
+	        });
+		});
+	</script>
+
+{% endblock %}

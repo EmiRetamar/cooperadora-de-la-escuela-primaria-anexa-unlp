@@ -1,0 +1,67 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+
+{% if datos.1|length > 0 %}
+    <div class="centrado">
+        <h2> Alumno  {{ datos.2 }} {{ datos.3 }}</h2>
+    </div>
+    <h3>Cuotas Impagas</h3>
+        <div class="table-responsive">
+            <table  class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Año</th>
+                        <th>Mes</th>
+                        <th>Numero cuota</th>
+                        <th>Monto</th>
+                        <th>Tipo</th>
+                        <th>Comision a cobrador</th>
+                        <th>Fecha de alta</th>
+                        <th>Pagar ó Becar </th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    {% for cuotasImpagas in datos.1 %}
+                        <tr> 
+                            <td> {{ cuotasImpagas.anio }} </td>
+                            <td> {{ cuotasImpagas.mes }} </td>
+                            <td> {{ cuotasImpagas.numero }} </td> 
+                            <td> {{ cuotasImpagas.monto }} </td>
+                            <td> 
+                                {% if(cuotasImpagas.tipo == 0) %}
+                                    Cuota
+                                {% else %}
+                                    Matricula
+                                {% endif %}
+                            </td>
+                            <td> {{ cuotasImpagas.comisionCobrador }} </td>
+                            <td> {{ cuotasImpagas.fechaAlta }} </td>    
+                        <form action="../Cuota/pagarBecarAlumno" method="post">
+                            <td> 
+                                <input type="checkbox" name="check_list[]" value="{{ cuotasImpagas.id }}">  </td>
+
+                                <input type="hidden" name="idAlumno" value="{{ datos.0 }}">  
+                            </td>
+                        </tr>   
+                    {% endfor %}
+                </tbody>
+                <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><input type="submit" value="Pagar" name="submit"> <input type="submit" value="Becar" name="submit"></td>
+                        </form>
+                </tr>   
+            </table>
+        </div>
+{% else %} 
+    <div class="centrado">
+        <h3>No se registran cuotas impagas</h3>
+    </div> 
+{% endif %}
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <br />
+    <div id="menu">
+        <ul>
+            <li class="list-group-item list-group-item-info"><a href="../Cuota/vistaAltaCuota">Agregar una cuota</a></li>
+        </ul>
+    </div>
+
+    {% if(var.exito) %}
+        <div id="exito">{{ var.exito }}</div>
+    {% elseif(var.error) %}
+        <div id="error">{{ var.error }}</div>
+    {% endif %}
+    
+    <br />
+    <div class="table-responsive">
+        <table id="tabla" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Numero de cuota</th>
+                    <th>Tipo</th>
+                    <th>Monto</th>
+                    <th>Mes</th>
+                    <th>Año</th>
+                    <th>Comision al cobrador</th>
+                    <th>Fecha de alta</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cuota in cuotas %}
+                    <tr>
+                        <td> {{ cuota.numero }} </td>
+                        <td> {% if cuota.tipo == 0 %} Cuota {% else %} Matricula {% endif %} </td>
+                        <td> {{ cuota.monto }} </td>
+                        <td> {{ cuota.mes }} </td>
+                        <td> {{ cuota.anio }} </td>
+                        <td> {{ cuota.comisionCobrador }} </td>
+                        <td> {{ cuota.fechaAlta }} </td>
+                        <td>
+                            <form action="../Cuota/vistaModificarCuota" method="post">
+                                <input type="hidden" name="idCuota" value="{{ cuota.id }}">
+                                <button class="btn btn-success">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="../Cuota/vistaEliminarCuota" method="post">
+                                <input type="hidden" name="idCuota" value="{{ cuota.id }}">
+                                <button class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

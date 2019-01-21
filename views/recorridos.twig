@@ -1,0 +1,63 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+
+
+    
+    <link rel="stylesheet" href="../../lib/leaflet/leaflet-routing-machine.css" />    
+    <link rel="stylesheet" href="../../lib/leaflet/leaflet.css" />    
+
+    <script src="../../lib/leaflet/leaflet-routing-machine.js"></script>
+    <script src="../../lib/leaflet/leaflet.js"></script>
+
+
+<div class="centrado">
+    <div class="row principal bordes white">
+        <div class="col-12">
+        <select id="alumnos"> <!--lo hardcodee para ver como queda-->
+            <option value="-34.9425087142857,-57.9822199938775"> Emi Retamar </option>
+            <option value="-34.8828151,-57.8450451"> Gaston Alvarez </option>
+        </select>
+        
+        <button id="agregar">Agregar recorrido</button>
+
+        <div id="map" style="width: auto; height: 400px"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var map = L.map('map', {
+            center: [-34.92134, -57.95447],
+            zoom: 13,
+        });
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        var loc;
+        map.locate();
+        map.on('locationfound', onLocationFound);
+        map.on('locationerror', function(){
+            alert('No se pudo encontrar su ubicación');
+        });
+        function onLocationFound(e) {
+            loc = e.latlng;
+            L.marker(loc).addTo(map)
+        }
+
+        $('#agregar').click(function() {
+            var a = $('#alums').val().split(",");
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(loc),
+                    L.latLng(a)
+                ],
+                fitSelectedRoutes: false
+            }).addTo(map).hide();
+        });
+
+    </script>
+</div>
+    <br />
+{% endblock %}

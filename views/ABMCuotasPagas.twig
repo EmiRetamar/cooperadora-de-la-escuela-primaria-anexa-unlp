@@ -1,0 +1,54 @@
+{% block content %}
+
+<br />
+{% if datos.1|length > 0 %}
+    <h3>Cuotas Pagas </h3>
+        <div class="table-responsive">
+            <table id="tabla" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Año</th>
+                        <th>Mes</th>
+                        <th>Numero cuota</th>
+                        <th>Monto</th>
+                        <th>Tipo</th>
+                        <th>Comision a cobrador</th>
+                        <th>Fecha de alta</th>
+                        <th>Becado</th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    {% for cuotasPagas in datos.1 %}
+                        <tr> 
+                            <td> {{ cuotasPagas.anio }} </td>
+                            <td> {{ cuotasPagas.mes }} </td>
+                            <td> {{ cuotasPagas.numero }} </td> 
+                            <td> {{ cuotasPagas.monto }} </td>
+                            <td>
+                                {% if(cuotasPagas.tipo == 0) %}
+                                    Cuota
+                                {% else %}
+                                    Matricula
+                                {% endif %}
+                            </td>
+                            <td> {{ cuotasPagas.comisionCobrador }} </td>
+                            <td> {{ cuotasPagas.fechaAlta }} </td>    
+                            <td>
+                                {% if(cuotasPagas.becado == true) %}
+                                    Si
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
+                        </tr>  
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% else %} 
+    <div class="centrado">
+        <h3>No se registran cuotas pagas</h3>
+    </div>  
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <div class="centrado">
+        <h1>Responsable a eliminar: {{ responsable.apellido }} {{ responsable.nombre }}</h1>
+    </div>
+    <br />
+    <div class="centrado">
+        <h2>¿Está seguro que desea eliminar este responsable?</h2>
+    </div>
+    <br />
+    <div id="error">{{ var }}</div>
+    <form action="../Responsable/eliminarResponsable" method="post">
+        <div class="centrado">
+            <input type="hidden" name="idResponsable" class="form-control" value="{{ responsable.id }}">
+            <input type="submit" class="btn btn-primary" value="Aceptar">
+        </div>
+    </form>
+    <br />
+    <form action="../Responsable/controlResponsable">
+        <div class="centrado">
+            <button class="btn btn-primary" value="Cancelar">Cancelar</button>
+        </div>
+    </form>
+    <br />
+{% endblock %}

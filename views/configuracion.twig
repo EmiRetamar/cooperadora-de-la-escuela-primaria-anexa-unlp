@@ -1,0 +1,73 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+	<div class="centrado">
+        <h1>Configuración del sitio</h1>
+    </div>
+    
+	    <div id="exito">{{ var.exito }}</div>
+	    <div id="error">{{ var.error.validacion }}</div>
+
+    <div id="margen"></div>
+	<form action="../Configuracion/infoCooperadora" method="post">
+		<div class="row">
+			<div class="col-md-5">
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<div id="error">{{ var.error.titulo }}</div>
+					<label>Titulo:</label>
+					<input title="Ingrese un mínimo de 2 carácteres, máximo 30" pattern=".{2,30}" type="text" name="titulo" value="{{ configuracion.titulo }}" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.descripcion }}</div>
+					<label>Descripción:</label>
+					<input title="Ingrese un mínimo de 2 carácteres, máximo 255" pattern=".{2,255}" type="text" name="descripcion" value="{{ configuracion.descripcion }}" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.mail }}</div>
+					<label>Mail de contacto:</label>
+					<input title="Ejemplo user@mail.com" pattern=".{2,30}" type="text" name="mail" value="{{ configuracion.mail }}" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.elementos }}</div>
+					<label>Elementos por página:</label>
+					<input type="number" name="elementos" min="0" max="9999999" value="{{ configuracion.elementos }}" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.habilitado }}</div>
+					<label>Habilitado:</label>
+					<div class="centrado">
+						{% if(configuracion.habilitado == true) %}
+							<input type="radio" name="habilitado" value="1" checked="checked" required>
+							<label>Si</label>
+							<input type="radio" name="habilitado" value="0">
+							<label>No</label>
+						{% else %}
+							<input type="radio" name="habilitado" value="1">
+							<label>Si</label>
+							<input type="radio" name="habilitado" value="0" checked="checked" required>
+							<label>No</label>
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.mensaje }}</div>
+					<label>Mensaje de sitio deshabilitado:</label>
+					<input title="Ingrese un mínimo de 2 carácteres, máximo 255" pattern=".{2,255}" type="text" name="mensaje" value="{{ configuracion.mensaje }}" class="form-control" required>
+				</div>
+				<br />
+				<div class="centrado">
+					<input type="submit" class="btn btn-primary" value="Enviar">
+				</div>
+			</div>
+		</div>
+	</form>
+	<br />
+	<form action="../Home/vistaBackend">
+		<div class="centrado">
+	  		<button class="btn btn-primary" value="Cancelar">Cancelar</button>
+        </div>
+	</form>
+	<br />
+{% endblock %}

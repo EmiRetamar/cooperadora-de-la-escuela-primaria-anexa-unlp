@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>        
+		<link href="../../css/frontend.css" rel="stylesheet" type="text/css">
+		<link href="../../css/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="../../js/jquery.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+		<title>Página principal de la escuela</title>
+	</head>
+	<body>
+		{%
+		if(var.habilitado and isFound == "found")
+		%}
+			<div class = "navbar navbar-inverse navbar-static-top">
+				<div class="container-fluid">  <!-- Esto hace que el texto este en los extremos de la pagina -->
+					<button class="navbar-toggle" data-toggle = "collapse" data-target = "navHeaderCollapse"> <!-- Esto es si se achica la pantalla, hace un cuadradito con 3 lineas -->
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<div class= "navbar-collapse navHeaderCollapse">
+						<a href="#" class="navbar-brand">Cooperadora de la Escuela Primaria Anexa</a>
+						<ul class="nav navbar-nav navbar-right">
+							{% if(session.username is defined) %}
+								<li><a href="../Home/vistaBackend" class="navbar-brand">Perfil de usuario</a></li>
+								<li><a href="../Logout" class="navbar-brand">Cerrar Sesión</a></li>
+							{% else %}
+								<li><a href="../Login/index" class="navbar-brand">Iniciar Sesión</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="cuerpo">
+				<div id="titulo">
+					INFORMACIÓN INSTITUCIONAL
+					<h3>
+						Título: {{ var.titulo }}
+					</h3>
+				</div>
+				<h3>
+					Descripción: {{ var.descripcion }}
+					<br />
+					Email: {{ var.mail }}
+				</h3>
+				<div id="subtitulo">
+					AUTORIDADES
+				</div>
+				<div class="informacion">
+					<br />
+					<div class="establecimiento">
+						Universidad Nacional de La Plata
+					</div>
+					<div>
+						<span>Presidente:</span> Lic. Raúl Anibal Perdomo
+					</div>
+					<div>
+						<span>Vicepresidente Área Institucional:</span> Dr. Fernando A. Tauber
+					</div>
+					<div>
+						<span>Vicepresidente Área Académica:</span> Prof. Ana María Barletta
+					</div>
+					<div>
+						<span>Secretaria Académica:</span> Dra. María Mercedes Medina
+					</div>
+					<div>
+						<span>Prosecretaria de Asuntos Académicos:</span> Prof. Laura Agratti
+					</div>
+				</div>
+				<div class="informacion">
+					<div class="establecimiento">
+						Escuela Graduada “Joaquín V. González”
+					</div>
+					<div>
+						<span>Directora:</span> Prof. Claudia Beatriz Binaghi
+					</div>
+					<div>
+						<span>Vicedirectora:</span> Prof. Violeta N. Pesci
+					</div>
+					<div>
+						<span>Secretaria Docente:</span> Prof. Mariela Boccia
+					</div>
+					<div>
+						<span>Secretaria Académica de Educación Inicial:</span> Prof. Rosa Mónica Bordagaray
+					</div>
+					<div>
+						<span>Secretaria Académica de Educación Primaria:</span> Prof. Aldana López
+					</div>
+					<div>
+						<span>Secretaria Académica de Educación Primaria:</span> Prof. Celeste Carli
+					</div>
+					<div>
+						<span>Regente del turno mañana:</span> Prof. Elina Rebolini
+					</div>
+					<div>
+						<span>Regente del turno tarde:</span> Prof. Leticia Peret
+					</div>
+				</div>
+				<div class="informacion">
+					La Escuela es una Dependencia de la Presidencia de la Universidad. Los actos resolutivos que exceden la competencia de la Dirección de la Escuela, son refrendados por el Presidente de la Universidad. Dentro de la Secretaría de Asuntos Académicos de la Universidad, la Prosecretaría asesora a la Presidencia en los temas relacionados a la enseñanza preuniversitaria.
+				</div>
+				<div class="informacion">
+					El CEMYP (Consejo de Enseñanza Media y Primaria), dependiente del Consejo Superior y supervisado por su Comisión de Enseñanza, fue creado con la finalidad de “asegurar el cumplimiento de los objetivos establecidos, estudiando, estableciendo y perfeccionando la coordinación de los ciclos primario, medio y superior en procura de la unidad del proceso educativo”.Lo preside el Presidente de la Comisión de Enseñanza del Consejo Superior y está conformado por: un profesor de la Facultad de Humanidades y Ciencias de la Educación, los Directores de los Colegios y docentes elegidos por sus pares en cada centro educativo. Las sesiones son coordinadas por la Prosecretaría de Asuntos Académicos de la U.N.L.P. La Escuela participa del gobierno de la UNLP a través de un representante docente en la Asamblea Universitaria y del Director/a, quien integra el Consejo Superior con voz y voto con un sistema rotativo de pares entre los Directores/as del Sistema de Pregrado Universitario.
+					La Directora de la Escuela es elegida directamente por el voto secreto de los docentes. La escuela cuenta con cuatro Departamentos: Biblioteca, de Orientación Educativa, de Informática y de Multimedios. También cuenta con Coordinadores de Area, personal docente especializado en las disciplinas y su didáctica, que coordina la tarea de los docentes, a la vez que los capacita, en las diferentes áreas disciplinares, y en los distintos niveles (Coordinadores de Lengua, Matemática, Música, Plástica, Educación Física, Ciencias Sociales, Ciencias Naturales, Inglés, Francés, Tecnología Educativa y Talleres).
+				</div>
+				<div class="informacion">
+					La designación de los docentes se realiza a través de un sistema de concurso de antecedentes y oposición por el término de cuatro años, la cual puede ser prorrogada habiendo aprobado la instancia de evaluación correspondiente al finalizar cada período.
+				</div>
+				<div class="informacion">
+					La escuela cuenta con cargos de Maestro de Grado, Maestro de Sección, Auxiliar Docente, Preceptor y Ayudante de Clases Prácticas. El resto de las funciones se rentan con horas cátedra.
+				</div>
+				<div class="informacion">
+					La escuela tiene una Asociación Cooperadora de padres. Cobra una matrícula de 100 pesos por única vez cuando los niños ingresan a la escuela y luego cuotas mensuales.
+				</div>
+			</div>
+		{%
+		elseif(isFound == "notfound")
+		%}
+			<div class = "navbar navbar-inverse navbar-static-top">
+				<div class="container-fluid">  <!-- Esto hace que el texto este en los extremos de la pagina -->
+					<button class="navbar-toggle" data-toggle = "collapse" data-target = "navHeaderCollapse"> <!-- Esto es si se achica la pantalla, hace un cuadradito con 3 lineas -->
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<div class= "navbar-collapse navHeaderCollapse"> 
+						<a href="../Home/index" class="navbar-brand">Cooperadora de la Escuela Primaria Anexa</a>
+						<ul class="nav navbar-nav navbar-right">
+							{% if(session.username is defined) %}
+								<li><a href="../Home/vistaBackend" class="navbar-brand">Perfil de usuario</a></li>
+								<li><a href="../Logout" class="navbar-brand">Cerrar Sesión</a></li>
+							{% else %}
+								<li><a href="../Login/index" class="navbar-brand">Iniciar Sesión</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="titulo">
+				<h3>El sitio al que usted está tratando de ingresar no existe o no está disponible</h3>
+				<br />
+				<a href="../Home/index">
+					<img src="../../css/images/404.jpg" alt="404 No encontrado" id="notfound">
+				</a>
+			</div>
+		{%
+		else
+		%}
+			<div class="centrado">
+				<h2>{{ var.mensaje }}</h2>
+			</div>
+		{%
+		endif
+		%}
+	</body>
+</html>

@@ -1,0 +1,35 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <div class="table-responsive">
+        <div class="centrado">
+            <h1>Cuotas vencidas de los alumnos</h1>
+        </div>
+        <br />
+        <table id="tabla" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Numero de Documento</th>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Numero de Cuota</th>
+                    <th>Mes</th>
+                    <th>Año</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cuota in cuotas %}
+                    <tr>
+                        <td> {{ cuota.numeroDocumento }} </td>
+                        <td> {{ cuota.apellido }} </td>
+                        <td> {{ cuota.nombre }} </td> 
+                        <td> {{ cuota.numero }} </td>
+                        <td> {{ cuota.mes }} </td>
+                        <td> {{ cuota.anio }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br />
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <br />
+
+    <div class="centrado">
+        <h1>Asignar alumno al responsable.</h1>
+    </div>
+    
+	<div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Mail</th>
+                    <th>Asignar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alumno in alumnos %}
+                    <tr> 
+                        <td> {{ alumno.apellido }} </td> 
+                        <td> {{ alumno.nombre }} </td>
+                        <td> {{ alumno.mail }} </td>
+                        <td>
+                            <form action="../Responsable/asignarAlumno" method="post">
+                                <input type="hidden" name="idAlumno" value="{{ alumno.id }}">
+                                <input type="hidden" name="idResponsable" value="{{ idResponsable }}">
+                                <button type="submit" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="centrado">
+        <h1>Alumnos asignados al responsable.</h1>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Mail</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asignado in asignados %}
+                    <tr> 
+                        <td> {{ asignado.apellido }} </td> 
+                        <td> {{ asignado.nombre }} </td>
+                        <td> {{ asignado.mail }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

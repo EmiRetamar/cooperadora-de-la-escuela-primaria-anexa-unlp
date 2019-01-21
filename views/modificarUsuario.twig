@@ -1,0 +1,127 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <link href="../../lib/select2/select2.min.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="../../lib/select2/select2.min.js"></script>
+    <div class="centrado">
+        <h1>Usuario a modificar: {{ usuario.username }}</h1>
+    </div>
+    <div class="centrado">
+		<div id="error">{{ var.error.usuario }}</div>
+	</div>
+    <br />
+	<form action="../Usuario/modificarUsuario" method="post">
+		<div class="row">
+			<div class="col-md-5">
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<input type="hidden" name="idUsuario" class="form-control" value="{{ usuario.id }}">
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.username }}</div>
+					<label>Nombre de usuario:</label>
+					<input title="Ingrese un mínimo de 2 carácteres, máximo 20" value="{{ usuario.username }}" type="text" name="username" class="form-control" pattern=".{2,20}" required="required">
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.password }}</div>
+					<label>Contraseña:</label>
+					<input title="La contraseña debe tener como mínimo 6 carácteres, máximo 30" type="password" name="password" class="form-control" pattern=".{6,30}" required="required">
+				</div>
+				<div class="form-group">
+					<label>Repetir contraseña:</label>
+					<input title="Repita la contraseña" type="password" name="password2" class="form-control" pattern=".{6,30}" required="required">
+				</div>
+				<div class="form-group">
+					<div id="error">{{ var.error.habilitado }}</div>
+					<label>Habilitado:</label>
+					<div class="centrado">
+						{% if(usuario.habilitado == true) %}
+							<input name="habilitado" type="radio" value="1" checked="checked">
+							<label>Si</label>
+							<input name="habilitado" type="radio" value="0">
+							<label>No</label>
+						{% else %}
+							<input name="habilitado" type="radio" value="1">
+							<label>Si</label>
+							<input name="habilitado" type="radio" value="0" checked="checked">
+							<label>No</label>
+						{% endif %}
+					</div>
+				</div>
+				<div>
+					<div id="error">{{ var.error.rol }}</div>
+					<label>Rol:</label>
+					<select name="rol" id="rol">
+						{% if(usuario.rol == 'consulta') %}
+							<option value="consulta" selected="selected">Consulta</option>
+							<option value="gestion">Gestion</option>
+							<option value="administrador">Administrador</option>
+						{% elseif(usuario.rol == 'gestion') %}
+							<option value="consulta">Consulta</option>
+							<option value="gestion" selected="selected">Gestion</option>
+							<option value="administrador">Administrador</option>
+						{% else %}
+							<option value="consulta">Consulta</option>
+							<option value="gestion">Gestion</option>
+							<option value="administrador" selected="selected">Administrador</option>
+						{% endif %}
+					</select>
+				</div>
+				<br />
+				<div class="form-group" id="divMailOtro">
+					<div id="error">{{ var.error.mail }}</div>
+					<label>Correo electrónico:</label>
+					<input id="mailOtro" title="Ejemplo user@mail.com" value="{{ usuario.mail }}" type="email" name="mailOtro" class="form-control" required="required">
+				</div>
+				<div class="form-group" id="divMailConsulta" hidden>
+					<div id="error">{{ var.error.mail }}</div>
+					<select class="mailConsulta" name="mailConsulta" id="mailConsulta">
+						{% for responsable in responsables %}
+							<option value="{{ responsable.mail }}">{{ responsable.nombre }} {{ responsable.apellido }} {{ responsable.mail }}<option>
+						{% endfor %}
+					</select>
+				</div>
+				<br />
+				<div class="centrado">
+					<input type="submit" class="btn btn-primary" value="Enviar">
+				</div>
+			</div>
+		</div>
+	</form>
+	<br />
+    <form action="../Usuario/controlUsuario">
+		<div class="centrado">
+            <button class="btn btn-primary" value="Cancelar">Cancelar</button>
+		</div>
+    </form>
+    <br />
+
+	<script type="text/javascript">
+	$(function() {
+	    $('#rol').change(function() {
+	        if($('#rol').val() == 'consulta') {
+	            $('#divMailOtro').hide();
+	            $('#mailOtro').removeAttr("required");
+	            $('#divMailConsulta').show();
+	            $('#mailConsulta').addAttr("required");
+	        }
+	        else {
+	        	$('#divMailConsulta').hide();
+	            $('#mailConsulta').removeAttr("required");
+	            $('#divMailOtro').show();
+	            $('#mailOtro').addAttr("required");
+	        }
+	    });
+	});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+		  $(".mailConsulta").select2({
+	                placeholder: "Seleccione un mail"
+	            });
+		});
+	</script>
+
+{% endblock %}

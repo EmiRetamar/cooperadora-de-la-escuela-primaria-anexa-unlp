@@ -1,0 +1,52 @@
+{% extends "backend.twig" %}
+
+{% block content %}
+    <div class="table-responsive">
+        <div class="centrado">
+            <h1>Cuotas pagas de los alumnos</h1>
+        </div>
+        <br />
+        <div id="menu">
+            <ul>
+                <li class="list-group-item list-group-item-info">
+                    <a href="vistaCuotasPagasPDF">Filtrar tabla por fechas</a>
+                </li>
+            </ul>
+        </div>
+        <table id="tabla" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Numero de Documento</th>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>Numero de Cuota</th>
+                    <th>Mes</th>
+                    <th>Año</th>
+                    <th>Monto</th>
+                    <th>Becada</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cuota in cuotas %}
+                    <tr>
+                        <td> {{ cuota.numeroDocumento }} </td>
+                        <td> {{ cuota.apellido }} </td>
+                        <td> {{ cuota.nombre }} </td>
+                        <td> {{ cuota.numero }} </td>
+                        <td> {{ cuota.mes }} </td>
+                        <td> {{ cuota.anio }} </td>
+                        <td> {{ cuota.monto }} </td>
+                        <td>
+                            {% if(cuota.becado == true) %}
+                                Si
+                            {% else %}
+                                No
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br />
+{% endblock %}
